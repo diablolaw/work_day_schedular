@@ -29,7 +29,17 @@ hoursOfTheDay.forEach((hr) => {
   grid.append(textArea);
   grid.append(saveButton);
   container.append(grid);
+
+  if (hr.text === currentTime.text) {
+    $('textarea[name = "' + hr.text + '"]').addClass("present");
+  } else if (hr.hour < now) {
+    $('textarea[name = "' + hr.text + '"]').addClass("past");
+  } else {
+    $('textarea[name = "' + hr.text + '"]').addClass("future");
+    console.log($('textarea[name = "' + hr.text + '"]').attr("name"));
+  }
 });
+
 $(".saveBtn").click(function (event) {
   event.preventDefault();
   var i = this.name;
