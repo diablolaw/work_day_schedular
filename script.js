@@ -17,22 +17,23 @@ hoursOfTheDay.forEach((hr) => {
   );
 
   var time = $('<div class="flex time-label"></div>').text(hr.text);
-  var textArea = $("<textarea name='${hr.text}'></textarea>").text(
-    store.getItem(hr.text)
-  );
+  var textArea = $("<textarea></textarea>")
+    .text(store.getItem(hr.text))
+    .attr("name", hr.text);
+
   var saveButton = $(
     '<button type="submit" class = "saveBtn"><i>Save</i></button>'
-  );
+  ).attr("name", hr.text);
 
   grid.append(time);
   grid.append(textArea);
   grid.append(saveButton);
   container.append(grid);
+});
+$(".saveBtn").click(function (event) {
+  event.preventDefault();
+  var i = this.name;
+  var value = $('textarea[name = "' + i + '"]').val();
 
-  $(".saveBtn").click(function (event) {
-    event.preventDefault();
-    var value = $('textarea[name = "${hr.text}"]').val();
-    console.log(value);
-    store.setItem(hr.text, value);
-  });
+  store.setItem(i, value);
 });
